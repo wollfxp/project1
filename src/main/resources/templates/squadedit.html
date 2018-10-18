@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Starship > Edit Squad</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../static/css/font-awesome-5.3.1-all.css"/>
+    <link rel="stylesheet" th:href="@{/css/dragula.min.css}" href="../static/css/dragula.min.css"/>
+    <script th:src="@{/js/dragula.min.js}" type="application/javascript" src="../static/js/dragula.min.js"></script>
+    <script th:src="@{/js/squad.js}" type="application/javascript"></script>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="content-wrapper">
+        <div class="squad-edit-info-container">
+
+            <span class="edit-squad-valign">
+                Editing&nbsp;<span class="shine" th:text="${squad.name}"></span><a class="squad-rename-button" onclick="showRenameInput()">&nbsp;(Rename)&nbsp;</a>
+            </span>
+            <a class="right-float" th:href="'/hangar'">Back to Hangar</a>
+            <br>
+            <input th:value="${squad.name}" title="Only letters, numbers and spaces" placeholder="new name" minlength="1" maxlength="64" pattern="\w*\s*" type="text" class="squad-rename-input squad-rename-hidden"/>
+            <div class="squad-edit-half-view-container">
+                <div class="squad-edit-half-view-available-column">
+                    <span class="shine big-font-centered">Available ships</span>
+                    <hr class="hangar-squad-hr-separator"/>
+
+                    <div class="hangar-slots-container squad-available-ships-container">
+                        <div class="hangar-ship-slot" th:each="item : ${ships}" th:attr="data-ship-id=${item.id}">
+                            <img th:src="@{'/images/'+${item.type.type}+'-1.png'}" class="hangar-ship-icon">
+                            <div class="hangar-ship-type" th:text="${item.name}"></div>
+                            <div class="hangar-ship-stats"
+                                 th:text="'Hull: ' + ${item.health} + '/' + ${item.type.health}"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="squad-edit-half-view-center-controls">
+                    <i class="fas fa-arrow-left" onclick="squadControlMoveAllLeft()"></i>
+                    <div class="squad-edit-half-view-center-controls-separator"></div>
+                    <i class="fas fa-arrow-right" onclick="squadControlMoveAllRight()"></i>
+                </div>
+                <div class="squad-edit-half-view-squad-column">
+                    <span class="shine big-font-centered">Ships in squad</span>
+                    <hr class="hangar-squad-hr-separator"/>
+
+                    <div class="hangar-slots-container squad-assigned-ships-container">
+                        <div class="hangar-ship-slot" th:each="item : ${squad.ships}" th:attr="data-ship-id=${item.id}">
+                            <img th:src="@{'/images/'+${item.type.type}+'-1.png'}" class="hangar-ship-icon">
+                            <div class="hangar-ship-type" th:text="${item.name}"></div>
+                            <div class="hangar-ship-stats"
+                                 th:text="'Hull: ' + ${item.health} + '/' + ${item.type.health}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="right-float big-font-centered"><a href="#" onclick="submitSquadCreationForm()">SAVE SQUAD</a></span>
+            <span class="mission-briefing-enemy-resist-thermal big-font-centered"><a href="#" onclick="submitSquadDisbandForm()">DISBAND SQUAD</a></span>
+
+            <form class="squad-create-form"
+                  th:action="@{'/squad/edit'+'?id='+${squad.id}}"
+                  th:method="post" th:object="${params}">
+                <input type="hidden" class="squad-create-form-input-id-list" th:id="${'params''idList'''}"
+                       th:name="${'params[''idList'']'}">
+                <input type="hidden" class="squad-create-form-input-command" th:id="${'params''command'''}"
+                       th:name="${'params[''command'']'}">
+                <input type="hidden" class="squad-create-form-input-name" th:id="${'params''name'''}"
+                       th:name="${'params[''name'']'}">
+            </form>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Starship Admin</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script th:src="@{/js/admin.js}" type="application/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    Admin:
+    <div th:if="${error != null}">ERROR!</div>
+    <div th:if="${status != null}" th:text="${status}"></div>
+    <div>
+        <div class="button-group">
+            <div class="admin-group-item">
+                <img th:src="@{/images/alpha-1.png}"><br>
+                <form action="#" th:action="@{/admin}" th:method="post" th:object="${cmdContainer}">
+                    <input type="submit" class="admin-button admin-blu" value="Give me Interceptor!"/>
+                    <input type="hidden" th:id="${'params''shipType'''}" th:name="${'params[''shipType'']'}" value="alpha"/>
+                    <input type="hidden" th:field="*{command}" th:value="${cmdContainer.command}" />
+                </form>
+            </div>
+            <div class="admin-group-item">
+                <img th:src="@{/images/beta-1.png}"><br>
+                <form action="#" th:action="@{/admin}" th:method="post" th:object="${cmdContainer}">
+                    <input type="submit" class="admin-button admin-blu" value="Give me Bomber!"/>
+                    <input type="hidden" th:id="${'params''shipType'''}" th:name="${'params[''shipType'']'}" value="beta"/>
+                    <input type="hidden" th:field="*{command}" th:value="${cmdContainer.command}" />
+                </form>
+            </div>
+            <div class="admin-group-item">
+                <img th:src="@{/images/gamma-1.png}"><br>
+                <form action="#" th:action="@{/admin}" th:method="post" th:object="${cmdContainer}">
+                    <input type="submit" class="admin-button admin-blu" value="Give me Fighter!"/>
+                    <input type="hidden" th:id="${'params''shipType'''}" th:name="${'params[''shipType'']'}" value="gamma"/>
+                    <input type="hidden" th:field="*{command}" th:value="${cmdContainer.command}" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

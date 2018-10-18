@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Starship > Hangar</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../static/css/font-awesome-5.3.1-all.css"/>
+    <script th:src="@{/js/hangar.js}" type="application/javascript"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="content-wrapper">
+        <div class="hangar-info-container">
+            <div class="hangar-squad-bar">
+
+                <div class="hangar-squad-foundry">
+                    <div class="shine big-font-centered shipyard-text">Shipyard</div>
+                    <hr class="hangar-squad-hr-separator"/>
+
+                    <div th:each="type : ${shipTypes}">
+                        <form action="#" th:action="@{/hangar/build}" th:method="post" th:object="${cmdContainer}"
+                              th:with="affords=${user.credits >= type.creditCost && user.aiCores >= type.coreCost}">
+                            <span>Credit cost:&nbsp;<i class="fas fa-coins credit-color"></i>&nbsp;<span
+                                    class="credit-color" th:text="${type.creditCost}"></span></span><br>
+                            <span>AI Core cost:&nbsp;<i class="fas fa-toolbox upgrade-color"></i>&nbsp;<span
+                                    class="upgrade-color" th:text="${type.coreCost}"></span></span><br>
+                            <span class="mission-briefing-enemy-resist-thermal" th:text="'Not enough resources'"
+                                  th:if="${affords == false}"></span>
+                            <input type="submit" class="custom-button" th:value="'Build '+${type.name}+'!'"
+                                   th:disabled="${#lists.size(ships) eq user.hangarSize or affords == false}"/>
+                            <input type="hidden" th:id="${'params''shipType'''}" th:name="${'params[''shipType'']'}"
+                                   th:value="${type.type}"/>
+                        </form>
+                    </div>
+                    <br>
+                    <div>
+                        <span>Hangar upgrade<br>(+10 slots)</span>
+                        <form action="#" th:action="@{/hangar/upgrade}" th:method="post" th:object="${cmdContainer}"
+                              th:with="affords=${user.credits >= hangarUpgradeCreditCost && user.aiCores >= hangarUpgradeCoreCost}">
+                            <span>Credit cost:&nbsp;<i class="fas fa-coins credit-color"></i>&nbsp;<span
+                                    class="credit-color" th:text="${hangarUpgradeCreditCost}"></span></span><br>
+                            <span>AI Core cost:&nbsp;<i class="fas fa-toolbox upgrade-color"></i>&nbsp;<span
+                                    class="upgrade-color" th:text="${hangarUpgradeCoreCost}"></span></span><br>
+                            <span class="mission-briefing-enemy-resist-thermal" th:text="'Not enough resources'"
+                                  th:if="${affords == false}"></span>
+                            <input type="submit" class="custom-button" th:value="'Upgrade hangar'"
+                                   th:disabled="${affords == false} "/>
+                            <input type="hidden" th:id="${'params''action'''}" th:name="${'params[''action'']'}"
+                                   value="upgrade"/>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="hangar-squad-editor">
+                    <b>Squad Menu</b>
+                    <hr class="hangar-squad-hr-separator"/>
+
+                    <div th:switch="${#lists.size(squads)}">
+                        <div th:case="0">
+                            No squads found<br>
+                        </div>
+                        <ul>
+                            <li th:each="squad : ${squads}"><span
+                                    th:text="${squad.name} + ' (' + ${squad.ships != null ? #lists.size(squad.ships) : '0'} + ' ships)'"></span>&nbsp;
+                                <a th:if="${squad.activeMission == null}" th:href="'/squad/edit?id=' + ${squad.id}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form action="#" th:action="@{/squad/create}" th:method="post" th:object="${'newSquad'}">
+                        <input class="custom-button" type="submit" value="Create new squad">
+                    </form>
+                </div>
+            </div>
+
+            <div class="hangar-main-view">
+                <div class="hangar-profile-info">
+
+                    <div class="big-font-centered shine right-float">Hangar (<span
+                            th:text="${#lists.size(ships)}"></span>/<span
+                            th:text="${user.hangarSize}"></span>)
+                    </div>
+
+                    <div class="header-credit-indicator">
+                        <span>Credits:&nbsp;<i class="fas fa-coins"></i>&nbsp;<span
+                                th:text="${user.credits}"></span></span>
+                    </div>
+                    <div class="upgrade-color">
+                        <span>Cores:&nbsp;<i class="fas fa-toolbox"></i>&nbsp;<span
+                                th:text="${user.aiCores}"></span></span>
+                    </div>
+                    <div th:if="${repairCost > 0}">
+                        <form th:action="'/hangar/repair'"
+                              th:method="post" th:object="${params}">
+                            <input type="hidden" th:id="${'params''action'''}" th:name="${'params[''action'']'}"
+                                   value="repair">
+                            <span th:text="'Repair Cost: ' + ${#numbers.formatDecimal(repairCost,1,2)}">&nbsp;</span>
+                            <a href="#" onclick="parentElement.submit()">
+                                <i class="fas fa-wrench"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="hangar-slots-container">
+                    <div class="hangar-ship-slot" th:attr="data-squad-id=${item.squad != null ? item.squad.id : ''}"
+                         th:each="item : ${ships}">
+                        <div th:if="${item.squad != null}">
+                            <i class="fa fa-angle-double-down squad-icon" aria-hidden="true"></i>
+                            <span th:text="${item.squad.name}" class="small-font hangar-ship-slot-squad-name"></span>
+                        </div>
+                        <img th:src="@{'/images/'+${item.type.type}+'-1.png'}" class="hangar-ship-icon">
+                        <div class="hangar-ship-type" th:text="${item.type.name}"></div>
+
+                        <div class="mission-table-head-cell">
+                            <span>Hull</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <div th:classappend="${item.health < item.type.health} ? 'hangar-low-stat' : (${item.health <5} ? 'hangar-critical-stat' : '')"
+                                 th:text="${#numbers.formatDecimal(item.health,1,1)} + '/' + ${item.type.health}">
+                            </div>
+                        </div>
+
+                        <div class="mission-table-head-cell">
+                            <span>Damage</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <div th:text="${item.type.damage}"></div>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <span th:if="${item.type.damageType eq T(com.dataart.project1.entity.DamageType).THERMAL}"
+                                  class="mission-briefing-enemy-resist-thermal">Thermal</span>
+                            <span th:if="${item.type.damageType eq T(com.dataart.project1.entity.DamageType).EXPLOSIVE}"
+                                  class="mission-briefing-enemy-resist-explosive">Explosive</span>
+                            <span th:if="${item.type.damageType eq T(com.dataart.project1.entity.DamageType).KINETIC}"
+                                  class="mission-briefing-enemy-resist-kinetic">Kinetic</span>
+                        </div>
+
+                        <div class="hangar-ship-stats">
+
+                            <div class="mission-table-head-cell">
+                                <span>Resists</span>
+                            </div>
+
+                            <div class="hangar-ship-flex-table">
+                                <div class="hangar-ship-resists-item hangar-ship-resists-item-bg-thermal">
+                                    <span class=""
+                                          th:with="resist=${item.type.resists['THERMAL'] != null ? item.type.resists['THERMAL'] : 0 }"
+                                          th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                                </div>
+
+                                <div class="hangar-ship-resists-item hangar-ship-resists-item-bg-explosive">
+                                    <span class=""
+                                          th:with="resist=${item.type.resists['EXPLOSIVE'] != null ? item.type.resists['EXPLOSIVE'] : 0 }"
+                                          th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                                </div>
+
+                                <div class="hangar-ship-resists-item hangar-ship-resists-item-bg-kinetic">
+                                    <span class=""
+                                          th:with="resist=${item.type.resists['KINETIC'] != null ? item.type.resists['KINETIC'] : 0 }"
+                                          th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+
+</body>
+</html>

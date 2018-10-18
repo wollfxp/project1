@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Mission Start</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../static/css/font-awesome-5.3.1-all.css"/>
+</head>
+<body>
+<div class="blur-bg"></div>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="blur-bg"></div>
+    <div class="content-wrapper">
+        <div class="mission-briefing-info-container">
+            <span class="shine big-font-centered">Mission Briefing</span><a class="right-float"
+                                                                            th:href="@{/}">Back To Mission Control</a>
+            <div class="mission-logo-banner-container">
+                <img class="mission-logo-banner" src="../static/images/mission-1.png"
+                     th:src="@{'/images/mission-' + ${missionType.id} + '.png'}"/>
+            </div>
+
+            <div class="mission-briefing-column-view">
+                <div class="mission-briefing-column flex-table-base-alt">
+                    <div class="flex-table-column-alt-wide">
+                        <div class="mission-table-head-cell">
+                            <span>Type</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <span th:text="${missionType.name}"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-table-column-alt">
+                        <div class="mission-table-head-cell">
+                            <span>Level</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <span th:text="${missionType.level}"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-table-column-alt">
+                        <div class="mission-table-head-cell">
+                            <span>Risk</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <span th:text="${missionRiskText}"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex-table-column-alt">
+                        <div class="mission-table-head-cell">
+                            <span>Reward</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <i class="fas fa-coins credit-color"></i>
+                            <span class="credit-color" th:text="${missionType.reward}"></span><br>
+                            <span th:if="${missionType.rewardCoresChance > 0}">
+                                <i class="fas fa-toolbox upgrade-color"></i>&nbsp;<span class="upgrade-color" th:text="${missionType.rewardCoresMin + '-' + missionType.rewardCoresMax} + ' cores'"></span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex-table-column-alt">
+                        <div class="mission-table-head-cell">
+                            <span>Duration</span>
+                        </div>
+                        <div class="mission-table-alt-cell">
+                            <span th:text="${missionType.duration}"></span>&nbsp;seconds
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="mission-briefing-send-squad big-font-centered shine"><a th:href="'/squad/select?type=' + ${missionType.id}" href="#">Send Squad!</a></span>
+        </div>
+
+        <div class="mission-briefing-info-container">
+            <span class="big-font-centered shine">Threat Prediction</span>
+            <span class="right-float" th:text="'Maximum enemy fleet size: ' + ${missionType.maxFleetSize}">Max Fleet Size</span>
+            <div class="mission-briefing-enemy-spawns-card-container">
+                <div th:each="spawn : ${missionType.enemySpawns}" class="mission-briefing-enemy-spawns-item">
+
+                    <img th:src="@{'/images/' + ${spawn.enemyType.type} + '-1.png'}"><br>
+
+                    <div class="mission-briefing-enemy-spawns-card-name">
+                        <div class="big-font-centered" th:text="${spawn.enemyType.name}"></div>
+                    </div>
+
+                    <div class="mission-briefing-column flex-table-base">
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell">
+                                <span>Chance</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span th:text="${#numbers.formatDecimal(spawn.percentage * 100, 1,0)} + '%'"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell">
+                                <span>Hull</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span th:text="${spawn.enemyType.health}"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell">
+                                <span>Damage</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span th:text="${spawn.enemyType.damage}"></span>
+                                <span th:if="${spawn.enemyType.damageType eq T(com.dataart.project1.entity.DamageType).THERMAL}"
+                                      class="mission-briefing-enemy-resist-thermal">Thermal</span>
+                                <span th:if="${spawn.enemyType.damageType eq T(com.dataart.project1.entity.DamageType).EXPLOSIVE}"
+                                      class="mission-briefing-enemy-resist-explosive">Explosive</span>
+                                <span th:if="${spawn.enemyType.damageType eq T(com.dataart.project1.entity.DamageType).KINETIC}"
+                                      class="mission-briefing-enemy-resist-kinetic">Kinetic</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell mission-briefing-enemy-resist-thermal">
+                                <span>Thermal Resist</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span class="mission-briefing-enemy-resist-thermal"
+                                      th:with="resist=${spawn.enemyType.resists['THERMAL'] != null ? spawn.enemyType.resists['THERMAL'] : 0 }"
+                                      th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell mission-briefing-enemy-resist-explosive">
+                                <span>Explosive Resist</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span class="mission-briefing-enemy-resist-explosive"
+                                      th:with="resist=${spawn.enemyType.resists['EXPLOSIVE'] != null ? spawn.enemyType.resists['EXPLOSIVE'] : 0 }"
+                                      th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                            </div>
+                        </div>
+
+                        <div class="flex-table-column-alt">
+                            <div class="mission-table-head-cell mission-briefing-enemy-resist-kinetic">
+                                <span>Kinetic Resist</span>
+                            </div>
+                            <div class="mission-table-alt-cell">
+                                <span class="mission-briefing-enemy-resist-kinetic"
+                                      th:with="resist=${spawn.enemyType.resists['KINETIC'] != null ? spawn.enemyType.resists['KINETIC'] : 0 }"
+                                      th:text="${#numbers.formatDecimal(resist * 100, 1, 0)} +'%'"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+
+</body>
+</html>

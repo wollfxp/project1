@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/style.css"/>
+    <meta charset="UTF-8">
+    <title>Starship Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header">...</div>-->
+<div class="content-bg">
+
+    <div class="content-wrapper login-container">
+        <div class="big-font-centered mission-briefing-enemy-resist-thermal" th:if="${error}">
+            Failed to login
+        </div>
+        <div><span class="big-font-centered">Authorization required</span></div>
+        <form th:action="@{/dologin}" th:object="${user}" th:method="post">
+            <div>
+                <label>username</label>
+                <input th:field="*{username}"/>
+            </div>
+            <div>
+                <label>password</label>
+                <input type="password" th:field="*{password}"/>
+            </div>
+            <button class="custom-button" type="submit">login</button>
+        </form>
+
+        <a href="/register">register</a>
+    </div>
+
+</div>
+
+
+</body>
+</html>

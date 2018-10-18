@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission Result</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../static/css/font-awesome-5.3.1-all.css"/>
+
+</head>
+<body>
+<div class="blur-bg"></div>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="blur-bg"></div>
+    <div class="mission-wrapper content-wrapper" th:attr="data-mission-end-time=${mission.endTime}">
+        <div th:if="${mission.status eq T(com.dataart.project1.entity.MissionStatus).COMPLETED}">
+            <div class="shine big-font-centered">Mission is completed</div>
+            <div>Reward:</div>
+            <div class="credit-color"><i class="fas fa-coins credit-color"></i>&nbsp;<span
+                th:text="${result.missionPay} + ' credits'"></span></div>
+            <div th:if="${result.missionCores > 0}" class="upgrade-color"><i class="fas fa-toolbox upgrade-color"></i>&nbsp;<span
+                    th:text="${result.missionCores} + ' cores'"></span></div>
+            <span class="shine big-font-centered" th:text="${result.squad.name} + ' returned'"></span><br>
+
+            <div class="mission-result-slot-container">
+                <div class="hangar-ship-slot"
+                     th:each="item : ${result.squad.ships}">
+                    <img th:src="@{'/images/'+${item.type.type}+'-1.png'}" class="hangar-ship-icon">
+                    <div class="hangar-ship-type" th:text="${item.type.name}"></div>
+                    <div class="hangar-ship-stats">
+                        <span>Hull</span>
+                        <div th:classappend="${item.health < item.type.health} ? 'hangar-low-stat' : (${item.health <5} ? 'hangar-critical-stat' : '')"
+
+                             th:text="${#numbers.formatDecimal(item.health,1,1)} + '/' + ${item.type.health}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div th:if="${mission.status eq T(com.dataart.project1.entity.MissionStatus).FAILED}">
+
+                <span>Mission failed</span>
+                <span th:text="${result.squad.name} + ' was destroyed'"></span>
+
+            </div>
+
+            <a th:href="@{'/'}">Back to mission control</a>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+</body>
+</html>

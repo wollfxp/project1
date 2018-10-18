@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/style.css"/>
+    <meta charset="UTF-8">
+    <title>Starship Market</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../../static/css/font-awesome-5.3.1-all.css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="blur-bg"></div>
+    <div class="content-wrapper">
+        <div class="shine big-font-centered">Market Not Available</div>
+        <span class="big-market-icon">
+            <i class="fa-10x fas fa-unlink mission-briefing-enemy-resist-thermal"></i>
+        </span>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+</body>
+</html>

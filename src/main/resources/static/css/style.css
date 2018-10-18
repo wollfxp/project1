@@ -1,0 +1,761 @@
+html {
+    height: 100%;
+    font-family: '04b03', Arial, sans-serif;
+    font-size: 24px;
+}
+
+@font-face {
+    font-family: '04b03';
+    src: url('../webfonts/04b03/04b03.woff2') format('woff2'),
+    url('../webfonts/04b03/04b03.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-image: linear-gradient(transparent, black), url(../images/space-bg.jpg);
+    background-color: black;
+    background-attachment: fixed;
+    height: 85%;
+}
+
+.content-wrapper {
+    color: white;
+    padding: 15px;
+}
+
+.wrapper-header {
+    background-color: rgba(34, 34, 34, 0.77);
+    width: 80%;
+    margin: 25px auto;
+    position: relative;
+    color: white;
+}
+
+.wrapper-footer {
+    background-color: rgba(34, 34, 34, 0.77);
+    width: 80%;
+    margin: 25px auto;
+    position: relative;
+    color: white;
+    padding: 0;
+}
+
+.sc-footer {
+    padding: 15px;
+}
+
+.content-bg {
+    background-color: rgba(34, 34, 34, 0.77);
+    width: 80%;
+    min-height: 85%;
+    margin: 25px auto;
+    position: relative;
+    color: white;
+}
+
+.blur-bg {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-image: linear-gradient(transparent, black), url(../images/space-bg.jpg);
+    background-color: black;
+    background-attachment: fixed;
+    filter: blur(4px);
+    z-index: -10;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+}
+
+.admin-group-item {
+    width: 30%;
+    border-radius: 10px;
+    border: 2px solid;
+}
+
+.admin-group-item > img {
+    width: 128px;
+    height: 128px;
+    margin: auto auto;
+    display: block;
+}
+
+input[type=submit].admin-button {
+    display: inline-block;
+    color: #666;
+    background-color: #eee;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom-width: 3px;
+    text-align: center;
+    margin: 5px;
+}
+
+input[type=submit].admin-button:hover {
+    background-color: #e3e3e3;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+input[type=submit].admin-button:active {
+    background-color: #CCC;
+    border-color: rgba(0, 0, 0, 0.9);
+}
+
+input[type=submit].admin-button.admin-blu {
+    background-color: #699DB6;
+    border-color: rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+    color: #FFF;
+}
+
+input[type=submit].admin-button.admin-blu:hover {
+    background-color: #4F87A2;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+input[type=submit].admin-button.admin-blu:active {
+    background-color: #3C677B;
+    border-color: rgba(0, 0, 0, 0.9);
+}
+
+.sc-header {
+    color: white;
+    list-style: none;
+    padding: 0;
+}
+
+a {
+    color: cyan;
+}
+
+li {
+    list-style: none;
+}
+
+.sc-header-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.sc-header-box > * {
+    padding: 10px;
+    color: white;
+}
+
+.pad-to-right {
+    margin-left: auto;
+}
+
+.btn-link {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: cyan;
+    padding: 0;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.logout-inline {
+    display: inline-flex;
+}
+
+.hangar-ship-slot {
+    width: 180px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 6px;
+}
+
+.hangar-ship-slot .squad-icon {
+    position: absolute;
+}
+
+.hangar-ship-type {
+    text-align: center;
+}
+
+.hangar-ship-stats {
+    text-align: center;
+    font-size: 18px;
+}
+
+.hangar-ship-icon {
+    width: 128px;
+    height: 128px;
+    margin: auto;
+    display: block;
+}
+
+.hangar-slots-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hangar-squad-bar {
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    flex: 2;
+    margin: 10px;
+}
+
+.hangar-squad-bar ul {
+    padding-inline-start: 10px;
+}
+
+.hangar-main-view {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    flex: 6;
+}
+
+.hangar-squad-hr-separator {
+    border-style: solid;
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.hangar-slot-in-squad {
+    border: 2px solid lightgreen;
+}
+
+.hangar-slot-selected {
+    border: 2px solid orange;
+}
+
+.squad-edit-half-view-container {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 5px;
+    margin: 5px;
+}
+
+.squad-edit-half-view-available-column {
+    width: 45%;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 5px;
+    padding: 5px;
+}
+
+.squad-edit-half-view-squad-column {
+    width: 45%;
+    float: right;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 5px;
+    padding: 5px;
+}
+
+.squad-edit-half-view-center-controls {
+    width: 48px;
+    margin: auto;
+}
+
+.squad-edit-half-view-center-controls > i {
+    text-align: center;
+    width: 100%;
+    color: white;
+}
+
+.squad-edit-half-view-center-controls > i:hover {
+    text-align: center;
+    width: 100%;
+    color: cyan;
+}
+
+.squad-available-ships-container {
+    min-height: 250px;
+}
+
+.squad-assigned-ships-container {
+    min-height: 250px;
+}
+
+.squad-edit-half-view-center-controls-separator {
+    height: 8px;
+}
+
+.squad-create-form {
+    display: none;
+}
+
+/* mission control ui*/
+
+.mission-control-available-missions-view {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.mission-control-available-missions {
+    width: 25%;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: 1em;
+}
+
+.mission-control-available-missions img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.shine {
+    background: #222 -webkit-gradient(linear, left top, right top, from(#222), to(#222), color-stop(0.5, #fff)) 0 0 no-repeat;
+    -webkit-background-size: 150px;
+    color: rgba(255, 255, 255, 0.3);
+    -webkit-background-clip: text;
+    -webkit-animation-name: shine;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes shine-old {
+    0%, 10% {
+        background-position: -1000px;
+    }
+    20% {
+        background-position: -250px;
+    }
+    90% {
+        background-position: 500px;
+    }
+    100% {
+        background-position: 1000px;
+    }
+}
+
+@keyframes shine {
+    0%, 30% {
+        background-position: -200px;
+    }
+    70%, 100% {
+        background-position: 700px;
+    }
+}
+
+.big-font-centered {
+    font-size: 36px;
+    text-align: center;
+}
+
+.squad-edit-info-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 10px;
+}
+
+.squad-select-slot-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+}
+
+.squad-select-vertical-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.squad-select-vertical-item {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 15px;
+    padding: 10px;
+}
+
+.login-container {
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.login-container input, label {
+    display: block;
+}
+
+.login-container input {
+    margin: auto;
+}
+
+.login-container button {
+    margin: 10px;
+    width: 128px;
+}
+
+.mission-control-deck-spacer {
+    width: 100%;
+    height: 32px;
+    display: block;
+}
+
+.mission-control-active-mission-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.mission-control-mission-item {
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(53, 53, 53, 0.7);
+}
+
+.mission-finished-div-hidden {
+    display: none;
+}
+
+.credit-color {
+    color: rgb(255, 215, 0);
+}
+
+.header-credit-indicator {
+    color: rgb(255, 215, 0);
+}
+
+.hangar-critical-stat {
+    color: rgba(255, 0, 0, 0.6);
+}
+
+.hangar-low-stat {
+    color: rgb(255, 215, 0);
+}
+
+.hangar-profile-info div {
+    margin: 5px 0;
+}
+
+.mission-briefing-column-view {
+    display: flex;
+    flex-direction: row;
+}
+
+.mission-briefing-column {
+    width: 45%;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: 5px;
+    padding: 5px;
+}
+
+.mission-briefing-column > span {
+    padding-left: 15px;
+}
+
+.mission-logo-banner-container {
+    overflow: hidden;
+}
+
+.mission-logo-banner {
+    width: 100%;
+}
+
+.flex-table-base {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: auto;
+}
+
+.flex-table-row {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.mission-table-head {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 5px;
+    width: 10%;
+    text-align: left;
+}
+
+.mission-table-head-name {
+    flex-grow: 1;
+}
+
+.mission-table-content {
+    width: 10%;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 5px;
+    padding: 5px;
+    text-align: left;
+}
+
+.mission-table-content-smaller {
+    width: 6%;
+}
+
+.mission-table-content-bigger {
+    width: 12%;
+}
+
+.mission-logo-small {
+    width: 100%;
+}
+
+.right-float {
+    float: right;
+}
+
+.upgrade-color {
+    color: rgb(169, 67, 242)
+}
+
+.flex-table-base-alt {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mission-table-head-cell {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 5px;
+    text-align: left;
+    height: 1em;
+}
+
+.mission-table-alt-cell {
+    background-color: rgba(255, 255, 255, 0.05);
+    margin: 5px;
+    padding: 5px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+.flex-table-column-alt {
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
+}
+
+.flex-table-column-alt-wide {
+    flex-direction: column;
+    display: flex;
+    flex-grow: 10;
+}
+
+.mission-briefing-enemy-resist-thermal {
+    color: rgb(252, 65, 0);
+}
+
+.mission-briefing-enemy-resist-kinetic {
+    color: rgb(90, 150, 252);
+}
+
+.mission-briefing-enemy-resist-explosive {
+    color: rgb(208, 129, 0);
+}
+
+.mission-briefing-info-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 5px;
+}
+
+.mission-briefing-enemy-spawns-item {
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: 5px;
+    padding: 5px;
+    flex-grow: 1;
+    max-width: 25%;
+}
+
+.mission-briefing-enemy-spawns-item img {
+    margin: auto;
+    display: block;
+}
+
+.mission-briefing-enemy-spawns-card-container {
+    display: flex;
+}
+
+.mission-briefing-enemy-spawns-card-name {
+    text-align: center;
+}
+
+.mission-briefing-send-squad {
+    display: block;
+}
+
+.big-market-icon {
+    width: 256px;
+    height: 256px;
+    display: block;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.custom-button {
+    font-family: inherit;
+    font-size: 18px;
+    width: 90%;
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid cyan;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.custom-button:hover {
+    color: white;
+    background-color: darkcyan;
+}
+
+.custom-button:disabled {
+    color: gray;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.mission-logo-xs {
+    width: 100%;
+}
+
+.hangar-info-container {
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+}
+
+.hangar-ship-flex-table {
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 5px 0;
+    padding: 3px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.hangar-ship-resists-item {
+    width: 33%;
+    color: white;
+}
+
+.hangar-ship-resists-item-bg-thermal {
+    display: inline-block;
+    background-color: rgb(252, 65, 0);
+}
+
+.hangar-ship-resists-item-bg-explosive {
+    background-color: rgb(208, 129, 0);
+    display: inline-block;
+}
+
+.hangar-ship-resists-item-bg-kinetic {
+    background-color: rgb(90, 150, 252);
+    display: inline-block;
+}
+
+.small-font {
+    font-size: 14px;
+}
+
+.hangar-ship-slot-squad-name {
+    padding-left: 24px;
+}
+
+.squad-rename-hidden {
+    display: none;
+}
+
+.squad-rename-input {
+    padding: 5px;
+    height: 2em;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-style: none;
+    border-width: 0;
+    border-color: rgba(0, 0, 0, 0);
+    padding-left: 10px;
+    color: white;
+}
+
+.squad-rename-input:valid {
+    border-style: none;
+    border-width: 0;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.squad-rename-input:invalid {
+    border-color: red;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.squad-rename-input::placeholder {
+    color: gray;
+    padding-left: 10px;
+}
+
+.edit-squad-valign {
+    vertical-align: bottom;
+}
+
+.squad-select-right-bar {
+    flex-grow: 1;
+    text-align: center;
+    margin: auto;
+}
+
+.squad-select-vertical-item-inner {
+    display: flex;
+}
+
+.hangar-squad-editor {
+    padding: 5px;
+}
+
+.hangar-squad-foundry {
+    padding: 5px;
+}
+
+.mission-briefing-select-mission {
+    padding-bottom: 0;
+}
+
+.two-em-text{
+    height: 2em;
+}
+
+.shipyard-text {
+    margin:auto;
+    text-align: center;
+}
+
+.mission-show-results-hidden {
+    display: none;
+}
+
+.mission-result-slot-container {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+}

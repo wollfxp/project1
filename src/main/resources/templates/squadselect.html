@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission > Select Squad</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/font-awesome-5.3.1-all.css}"
+          href="../static/css/font-awesome-5.3.1-all.css"/>
+    <link rel="stylesheet" th:href="@{/css/dragula.min.css}" href="../static/css/dragula.min.css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    <div class="content-wrapper">
+
+        <span class="shine big-font-centered" th:text="'Select squad for mission ' + ${missionType.name}"></span>
+        <br>
+        <a href="#" th:href="'/mission/start?id=' + ${missionType.id}">Back to mission briefing</a>
+
+        <div class="squad-select-vertical-container">
+
+
+            <div class="squad-select-vertical-item" th:each="s : ${summary}">
+                <div><span class="shine big-font-centered" th:text="${s.squad.name}"></span></div>
+                <div class="squad-select-vertical-item-inner">
+                    <div class="squad-select-slot-container">
+                        <div class="hangar-ship-slot" th:attr="data-squad-id=${s.squad.id}"
+                             th:each="item : ${s.squad.ships}">
+                            <img th:src="@{'/images/'+${item.type.type}+'-1.png'}" class="hangar-ship-icon">
+                            <div class="hangar-ship-type" th:text="${item.name}"></div>
+                            <div class="hangar-ship-stats"
+                                 th:text="'Hull: ' + ${item.health} + '/' + ${item.type.health}"></div>
+                        </div>
+                    </div>
+                    <div class="squad-select-right-bar">
+
+                        <div>Squad size: <span th:text="${#lists.size(s.squad.ships)}"></span></div>
+
+
+                        <div>Damage summary:</div>
+
+                        <div th:if="${s.dpsMap['THERMAL'] != null}"
+                                th:with="dmg=${s.dpsMap['THERMAL']}"
+                                th:text="'Thermal: '+${#numbers.formatDecimal(dmg, 1,0)} + ' damage'"
+                                class="mission-briefing-enemy-resist-thermal"></div>
+
+                        <div th:if="${s.dpsMap['EXPLOSIVE'] != null}"
+                              th:with="dmg=${s.dpsMap['EXPLOSIVE']}"
+                              th:text="'Explosive: '+${#numbers.formatDecimal(dmg, 1,0)} + ' damage'"
+                              class="mission-briefing-enemy-resist-explosive"></div>
+
+                        <div th:if="${s.dpsMap['KINETIC'] != null}"
+                              th:with="dmg=${s.dpsMap['KINETIC']}"
+                              th:text="'Kinetic: '+${#numbers.formatDecimal(dmg, 1,0)} + ' damage'"
+                              class="mission-briefing-enemy-resist-kinetic"></div>
+
+
+                        <form action="#" th:action="@{/mission/confirm}" th:method="post" th:object="${params}">
+                            <input type="submit" class="custom-button" value="Send this Squad!"/>
+                            <input type="hidden" th:id="${'params''missionType'''}"
+                                   th:name="${'params[''missionType'']'}"
+                                   th:value="${missionType.id}"/>
+                            <input type="hidden" th:id="${'params''squadId'''}" th:name="${'params[''squadId'']'}"
+                                   th:value="${s.squad.id}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<footer th:replace="fragments/footer :: footer">...</footer>
+
+</body>
+</html>

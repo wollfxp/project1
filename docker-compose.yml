@@ -1,0 +1,37 @@
+# https://docs.docker.com/compose/compose-file/
+version: "3"
+
+services:
+
+  spaceships:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "spaceships:latest"
+    ports:
+    - "8443:8443"
+    networks:
+    - space-net
+    depends_on:
+    - mysql
+
+  mysql:
+    hostname: "mysql-project1"
+    image: "mysql:5.6"
+    ports:
+    - "3306:3306"
+    volumes:
+    - mysql_volume:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=s3cur1ty@maks
+    - MYSQL_DATABASE=space
+    networks:
+      space-net:
+        aliases:
+        - mysql-project1
+
+networks:
+  space-net:
+
+volumes:
+  mysql_volume:

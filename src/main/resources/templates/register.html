@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Starship Register</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<div class="content-bg">
+    register
+    <p th:text="${error}">Validation error</p>
+    <div>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <span>spaceship register</span>
+            <div>
+                <label>username</label>
+                <input th:field="*{username}"/>
+            </div>
+            <div>
+                <label>email</label>
+                <input type="email" th:field="*{email}"/>
+            </div>
+            <div>
+                <label>password</label>
+                <input type="password" th:field="*{password}"/>
+            </div>
+            <button type="submit">submit</button>
+        </form>
+
+        <a href="/login">login</a>
+    </div>
+
+</div>
+
+
+</body>
+</html>
