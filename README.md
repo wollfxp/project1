@@ -7,4 +7,4 @@ Build with:
 `mvn clean package`
 
 Run with:
-`docker build -t spaceships . && docker-compose up`
+`docker build -t starships . && docker-compose up`

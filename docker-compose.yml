@@ -3,11 +3,11 @@ version: "3"
 
 services:
 
-  spaceships:
+  starships:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "spaceships:latest"
+    image: "starships:latest"
     ports:
     - "8443:8443"
     networks:
@@ -16,7 +16,7 @@ services:
     - mysql
 
   mysql:
-    hostname: "mysql-project1"
+    hostname: "mysql"
     image: "mysql:5.6"
     ports:
     - "3306:3306"
@@ -27,8 +27,6 @@ services:
     - MYSQL_DATABASE=space
     networks:
       space-net:
-        aliases:
-        - mysql-project1
 
 networks:
   space-net:
