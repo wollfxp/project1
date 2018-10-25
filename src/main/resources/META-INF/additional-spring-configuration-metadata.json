@@ -4,5 +4,6 @@
       "name": "resources.cache.period.override",
       "type": "java.lang.Integer",
       "description": "Description for resources.cache.period.override."
-  }
-] }
+    }
+  ]
+}
