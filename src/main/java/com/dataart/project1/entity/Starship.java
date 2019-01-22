@@ -4,7 +4,6 @@ package com.dataart.project1.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -27,7 +26,6 @@ public class Starship {
     private User owner;
 
     @ManyToOne
-    @Nullable
     private Squad squad;
     private Float health;
 
