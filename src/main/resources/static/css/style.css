@@ -329,7 +329,7 @@ li {
     color: rgba(255, 255, 255, 0.3);
     -webkit-background-clip: text;
     -webkit-animation-name: shine;
-    -webkit-animation-duration: 5s;
+    animation-duration: 4s;
     -webkit-animation-iteration-count: infinite;
     text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
 }
@@ -351,10 +351,10 @@ li {
 
 @keyframes shine {
     0%, 30% {
-        background-position: -200px;
+        background-position: -50%;
     }
     70%, 100% {
-        background-position: 700px;
+        background-position: 150%;
     }
 }
 

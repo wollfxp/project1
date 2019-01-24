@@ -1,4 +1,4 @@
-FROM openjdk:10-jre
+FROM openjdk:11-jre-slim
 VOLUME /tmp
-COPY target/project1-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/project1-0.1.0.jar app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
