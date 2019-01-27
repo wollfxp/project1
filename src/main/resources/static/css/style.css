@@ -60,6 +60,7 @@ body {
 .login-content-bg {
     background-color: rgba(34, 34, 34, 0.77);
     width: 20%;
+    min-width: 320px;
     min-height: 230px;
     margin: 25px auto;
     position: relative;

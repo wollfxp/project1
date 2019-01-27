@@ -7,7 +7,7 @@ space.users
   COLLATE utf8mb4_unicode_ci;
 
 insert into users (id, ai_cores, credits, hangar_size, name, premium)
-values (1, 0, 1000, 10, 'admin', false);
+values (1, 10, 15000, 10, 'admin', false);
 insert into security_user (id, is_admin, password, username, user_id)
 values (1, true, '111', 'admin', 1);
 

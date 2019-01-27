@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@Repository
 public interface StarshipRepo extends JpaRepository<Starship, Long> {
     Optional<Starship> findById(Long id);
     List<Starship> findAllByOwner(User user);

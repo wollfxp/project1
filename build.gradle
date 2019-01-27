@@ -20,7 +20,9 @@ lombok{
 }
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE'
+    compile ('org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE'){
+        exclude module: 'spring-boot-starter-tomcat'
+    }
     compile 'org.springframework.boot:spring-boot-starter-jetty:2.1.2.RELEASE'
     compile 'org.eclipse.jetty:jetty-alpn-conscrypt-server:9.4.12.v20180830'
     compile 'org.eclipse.jetty.http2:http2-server:9.4.12.v20180830'
