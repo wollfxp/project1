@@ -1,14 +1,19 @@
 package com.dataart.project1.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class Mission {
 
     @Id
@@ -24,8 +29,9 @@ public class Mission {
     @ManyToOne
     private User user;
 
-    private LocalDateTime creationTime;
-    private LocalDateTime endTime;
+    private ZonedDateTime creationTime;
+
+    private ZonedDateTime endTime;
 
     @OneToOne
     private Squad assignedSquad;
