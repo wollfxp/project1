@@ -15,5 +15,3 @@ spec:
     targetPort: 8443
   selector:
     io.kompose.service: starships
-status:
-  loadBalancer: {}

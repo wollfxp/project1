@@ -651,8 +651,8 @@ li {
 
 .hangar-info-container {
     display: flex;
-    padding: 5px;
-    margin: 5px;
+    /*padding: 5px;*/
+    /*margin: 5px;*/
 }
 
 .hangar-ship-flex-table {

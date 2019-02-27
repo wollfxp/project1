@@ -14,6 +14,10 @@
         <div class="big-font-centered mission-briefing-enemy-resist-thermal" th:if="${error}">
             Failed to login
         </div>
+        <div><span class="big-font-centered" th:text="${whitelabel}">brand placeholder</span></div>
+        <br/>
+        <div><span class="big-font-centered" th:text="'HOST: ' + ${podname}">pod host</span></div>
+        <br/>
         <div><span class="big-font-centered">Authorization required</span></div>
         <form th:action="@{/dologin}" th:object="${user}" th:method="post">
             <div>

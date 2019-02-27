@@ -18,17 +18,28 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: k8s
+            - name: APP_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           imagePullPolicy: Never
           ports:
             - containerPort: 8443
           volumeMounts:
-            - mountPath: "/app"
+            - mountPath: /app/spacekey.p12
               name: spacekey
+              subPath: spacekey.p12
               readOnly: true
+            - mountPath: /app/application-k8s.properties
+              name: app-config
+              subPath: application-k8s-cm.properties
       volumes:
         - name: spacekey
           secret:
             secretName: spacekey
+        - name: app-config
+          configMap:
+            name: starship-config
       restartPolicy: Always
   selector:
     matchLabels:
