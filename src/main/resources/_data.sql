@@ -6,8 +6,6 @@ space.users
   CONVERT TO CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-select * from users;
-select * from mission;
 
 insert into users (id, ai_cores, credits, hangar_size, name, premium)
 values (1, 10, 15000, 10, 'admin', false);
