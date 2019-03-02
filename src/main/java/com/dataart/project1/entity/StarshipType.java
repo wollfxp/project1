@@ -1,5 +1,6 @@
 package com.dataart.project1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class StarshipType {
     @MapKeyEnumerated(EnumType.STRING)
     private Map<DamageType,Float> resists;
 
+    @JsonIgnore
     private Boolean isEnemyOnly;
 
     private Integer creditCost;

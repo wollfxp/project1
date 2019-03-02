@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Comparator;
 
 @Controller
@@ -77,7 +78,7 @@ public class MissionUi extends UserAwareController {
     public String getMissionResults(Model model, @RequestParam("id") Long missionId) {
         var mission = missionService.getMissionById(missionId);
         if (mission == null || mission.getStatus() == MissionStatus.COMPLETED || mission.getStatus() == MissionStatus.FAILED ||
-                !mission.getUser().getId().equals(getCurrentUser().getId()) || !mission.getEndTime().isBefore(LocalDateTime.now())) {
+                !mission.getUser().getId().equals(getCurrentUser().getId()) || !mission.getEndTime().isBefore(ZonedDateTime.now())) {
             return "redirect:/";
         }
 

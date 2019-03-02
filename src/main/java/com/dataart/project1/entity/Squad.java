@@ -1,5 +1,7 @@
 package com.dataart.project1.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,9 +20,11 @@ public class Squad {
     private String name;
 
     @ManyToOne
+    @JsonIgnore
     private User owner;
 
     @OneToMany
+    @JsonBackReference
     private Set<Starship> ships;
 
     @OneToOne

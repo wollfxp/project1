@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ResourceHandlerConfiguration implements WebMvcConfigurer {
 
-    @Value("${resources.cache.period.override}")
+    @Value("${resources.cache.period.override:3600}")
     private final Integer cacheDuration = 600;
 
     @Override

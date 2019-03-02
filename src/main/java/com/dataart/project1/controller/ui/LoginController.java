@@ -1,4 +1,4 @@
-package com.dataart.project1.controller.api;
+package com.dataart.project1.controller.ui;
 
 import com.dataart.project1.entity.SecurityUser;
 import com.dataart.project1.entity.User;
@@ -8,13 +8,13 @@ import com.dataart.project1.service.UserDataService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletException;
@@ -22,6 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoginController {
+
+    @Value("${app.whitelabel.name:#{null}}")
+    private String whitelabelString;
+
+    @Value("${APP_POD_NAME:#{null}}")
+    private String podName;
 
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -46,6 +52,8 @@ public class LoginController {
             logger.warn("login error tracked");
         }
         model.addAttribute("user", new LoginUserDto());
+        model.addAttribute("whitelabel", whitelabelString != null ? whitelabelString : "NO_BRAND");
+        model.addAttribute("podname", podName != null ? podName : "UNKNOWN_HOST");
         return "login";
     }
 

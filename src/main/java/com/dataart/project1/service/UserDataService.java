@@ -25,12 +25,10 @@ public class UserDataService {
         this.securityUserRepo = securityUserRepo;
     }
 
-    @Transactional
     public User save(User user) {
         return userRepo.save(user);
     }
 
-    @Transactional
     public User findByName(String name) {
         return userRepo.findByName(name);
     }
@@ -54,7 +52,7 @@ public class UserDataService {
 
         createdUser.setHangarSize(HangarService.DEFAULT_HANGAR_SIZE);
         createdUser.setCredits(new BigDecimal(1000));
-        createdUser.setAiCores(BigInteger.ZERO);
+        createdUser.setAiCores(BigInteger.valueOf(10));
 
         userRepo.save(createdUser);
 

@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.17.0 (a74acad)
+  labels:
+    io.kompose.service: mysql
+  name: mysql
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: mysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: space
+        - name: MYSQL_PASSWORD
+          value: d4kfX8BwACqxFKt3
+        - name: MYSQL_USER
+          value: universe
+        - name: MYSQL_ROOT_PASSWORD
+          value: admin
+        image: mysql:5.6
+        name: mysql
+        ports:
+        - containerPort: 3306
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-volume
+      hostname: mysql
+      restartPolicy: Always
+      volumes:
+      - name: mysql-volume
+        persistentVolumeClaim:
+          claimName: mysql-volume

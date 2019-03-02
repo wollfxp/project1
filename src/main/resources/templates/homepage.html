@@ -23,15 +23,18 @@
             </div>
         </div>
         <div class="mission-control-deck-spacer"></div>
-        <div class="shine big-font-centered">Active Missions</div>
-        <div class="mission-control-active-mission-container">
-            <div th:each="mission : ${userMissions}" th:attr="data-mission-id=${mission.id}, data-mission-end-time=${mission.endTime}" class="mission-control-mission-item">
 
-            <img class="mission-logo-xs" src="../static/images/mission-icon-1.png" th:src="@{'/images/mission-icon-' + ${mission.type.id} + '.png'}"/><br>
-                <span class="mission-control-mission-name shine big-font-centered" th:text="${mission.type.name}"></span><br/>
-                <span th:text="'Squad: ' + ${mission.assignedSquad.name}"></span><br/>
-                <div>Estimated time: <span class="mission-estimate-timer">...</span></div>
-                <span><a class="mission-show-results-hidden" th:href="'/mission/results?id=' + ${mission.id}" href="#">View Mission Result</a></span>
+        <div  th:if="${not #lists.isEmpty(userMissions)}">
+            <div class="shine big-font-centered">Active Missions</div>
+            <div class="mission-control-active-mission-container">
+                <div th:each="mission : ${userMissions}" th:attr="data-mission-id=${mission.id}, data-mission-end-time=${#temporals.formatISO(mission.endTime)}" class="mission-control-mission-item">
+
+                    <img class="mission-logo-xs" src="../static/images/mission-icon-1.png" th:src="@{'/images/mission-icon-' + ${mission.type.id} + '.png'}"/><br>
+                    <span class="mission-control-mission-name shine big-font-centered" th:text="${mission.type.name}"></span><br/>
+                    <span th:text="'Squad: ' + ${mission.assignedSquad.name}"></span><br/>
+                    <div>Estimated time: <span class="mission-estimate-timer">...</span></div>
+                    <span><a class="mission-show-results-hidden" th:href="'/mission/results?id=' + ${mission.id}" href="#">View Mission Result</a></span>
+                </div>
             </div>
         </div>
     </div>

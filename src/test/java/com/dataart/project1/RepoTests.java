@@ -8,11 +8,13 @@ import com.dataart.project1.repo.StarshipRepo;
 import com.dataart.project1.repo.StarshipTypeRepo;
 import com.dataart.project1.service.MarketService;
 import com.dataart.project1.service.UserDataService;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.MySQLContainer;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -21,8 +23,15 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest/*(properties = {
+        "spring.datasource.url=jdbc:tc:mysql:///starship",
+        "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
+        "spring.jpa.hibernate.ddl-auto=create"
+})*/
 public class RepoTests {
+
+//    @ClassRule
+//    public static MySQLContainer mysql = new MySQLContainer();
 
     @Autowired
     private MarketService marketService;

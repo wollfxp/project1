@@ -4,7 +4,7 @@ CWJ demo project
 Test application for CWJ IT Talk.
 
 Build with:
-`mvn clean package`
+`gradle clean build`
 
 Run with:
 `docker build -t starships . && docker-compose up`

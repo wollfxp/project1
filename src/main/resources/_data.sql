@@ -1,17 +1,24 @@
-# admin
+ALTER DATABASE space
+CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
+ALTER TABLE
+space.users
+  CONVERT TO CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+
 insert into users (id, ai_cores, credits, hangar_size, name, premium)
-values (1, 0, 1000, 10, 'admin', false);
+values (1, 10, 15000, 10, 'admin', false);
 insert into security_user (id, is_admin, password, username, user_id)
 values (1, true, '111', 'admin', 1);
 
-# player ships
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type, core_cost, credit_cost)
 values (1, 3, 'THERMAL', 12, false, 'Alpha', 'alpha', 1, 1000);
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type, core_cost, credit_cost)
 values (2, 12, 'THERMAL', 16, false, 'Beta', 'beta', 1, 2500);
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type, core_cost, credit_cost)
 values (3, 4, 'THERMAL', 28, false, 'Gamma', 'gamma', 1, 3200);
-# enemy ships
+
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type)
 values (101, 1, 'THERMAL', 4, true, 'Drone', 'enemy-drone');
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type)
@@ -21,7 +28,6 @@ values (103, 7, 'THERMAL', 19, true, 'Lancer', 'enemy-lancer');
 insert into starship_type (id, damage, damage_type, health, is_enemy_only, name, type)
 values (104, 4, 'KINETIC', 31, true, 'Tank', 'enemy-tank');
 
-# player ship resists
 insert into starship_type_resists (starship_type_id, resists, resists_key)
 values (1, 0.4, 'THERMAL');
 insert into starship_type_resists (starship_type_id, resists, resists_key)
@@ -35,7 +41,6 @@ values (3, 0.4, 'KINETIC');
 insert into starship_type_resists (starship_type_id, resists, resists_key)
 values (3, 0.3, 'THERMAL');
 
-# enemy ship resists
 insert into starship_type_resists (starship_type_id, resists, resists_key)
 values (101, 0.7, 'EXPLOSIVE');
 insert into starship_type_resists (starship_type_id, resists, resists_key)
@@ -56,7 +61,6 @@ values (104, 0.8, 'KINETIC');
 insert into starship_type_resists (starship_type_id, resists, resists_key)
 values (104, 0.6, 'THERMAL');
 
-# mission types
 insert into mission_type (id,
                           duration,
                           length,
@@ -93,7 +97,6 @@ insert into mission_type (id,
                           reward_cores_min,
                           reward_cores_max)
 values (3, 135, 2, 3, 8, 'Pirate Fleet Interception', 2200, 3, 0.3, 0, 1);
-# mission spawns
 insert into mission_enemy_spawn (id, percentage, enemy_type_id)
 values (1, 0.75, 101);
 insert into mission_enemy_spawn (id, percentage, enemy_type_id)
@@ -117,7 +120,6 @@ values (9, 0.4, 103);
 insert into mission_enemy_spawn (id, percentage, enemy_type_id)
 values (10, 0.3, 104);
 
-# mission type -> spawn link
 insert into mission_type_enemy_spawns (mission_type_id, enemy_spawns_id)
 values (1, 1);
 insert into mission_type_enemy_spawns (mission_type_id, enemy_spawns_id)
@@ -139,12 +141,3 @@ insert into mission_type_enemy_spawns (mission_type_id, enemy_spawns_id)
 values (3, 9);
 insert into mission_type_enemy_spawns (mission_type_id, enemy_spawns_id)
 values (3, 10);
-
-
-ALTER DATABASE space
-CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-ALTER TABLE
-space.users
-  CONVERT TO CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Random;
@@ -60,8 +61,8 @@ public class MissionService {
 
         squad.setActiveMission(newMission);
         newMission.setAssignedSquad(squad);
-        newMission.setCreationTime(LocalDateTime.now());
-        newMission.setEndTime(LocalDateTime.now().plus(missionType.getDuration(), ChronoUnit.SECONDS));
+        newMission.setCreationTime(ZonedDateTime.now());
+        newMission.setEndTime(ZonedDateTime.now().plus(missionType.getDuration(), ChronoUnit.SECONDS));
         newMission.setUser(user);
         newMission.setType(missionType);
         newMission.setStatus(MissionStatus.IN_PROGRESS);
@@ -135,14 +136,8 @@ public class MissionService {
     }
 
 
-    public Set<Mission> fetchAndUpdateMissions(User currentUser) {
-        Set<Mission> allByUser = missionRepo.findAllByUserAndStatusIsLikeInProgress(currentUser);
-        allByUser.stream().filter(mission -> mission.getEndTime().isBefore(LocalDateTime.now()))
-                .forEach(mission -> {
-//                    mission.setStatus(MissionStatus.FINISHED);
-                    missionRepo.save(mission);
-                });
-        return allByUser;
+    public Set<Mission> fetchCurrentMissions(User currentUser) {
+        return missionRepo.findAllByUserAndStatusIsLikeInProgress(currentUser);
     }
 
     public Mission getMissionById(Long missionId) {

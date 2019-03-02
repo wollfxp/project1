@@ -27,17 +27,17 @@ public class SecurityUser implements UserDetails {
     private Boolean isAdmin;
 
     @Transient
-    private List<UserRole> authorities;
+    private List<UserAuthority> authorities;
 
     @Override
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (authorities == null) {
             authorities = new ArrayList<>();
-            authorities.add(UserRole.USER);
-            authorities.add(UserRole.APIUSER);
+            authorities.add(UserAuthority.USER);
+            authorities.add(UserAuthority.APIUSER);
             if (isAdmin != null && isAdmin){
-                authorities.add(UserRole.ADMIN);
+                authorities.add(UserAuthority.ADMIN);
             }
         }
         return authorities;

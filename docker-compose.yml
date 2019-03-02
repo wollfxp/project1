@@ -10,8 +10,10 @@ services:
     image: "starships:latest"
     ports:
     - "8443:8443"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
     networks:
-    - space-net
+      - space-net
     depends_on:
     - mysql
 

@@ -3,7 +3,6 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/style.css"/>
     <meta charset="UTF-8">
     <title>Space Header</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
@@ -15,8 +14,6 @@
         <ul class="sc-header-box">
             <li><a th:href="@{/}">Mission Control</a></li>
             <li><a th:href="@{/market/list}">Market</a></li>
-            <!--<li><a th:href="@{/market/create}">New Listing</a></li>-->
-            <!--<li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/admin}">Admin</a></li>-->
             <li sec:authorize="isFullyAuthenticated()"><a th:href="@{/hangar}">Hangar</a></li>
             <li sec:authorize="isAnonymous()" class="pad-to-right"><a th:href="@{/login}">Login</a>/<a
                     th:href="@{/register}">Register</a></li>
