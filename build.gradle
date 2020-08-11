@@ -4,7 +4,7 @@
 
 plugins {
     id 'java'
-    id "io.franzbecker.gradle-lombok" version "1.14"
+    id "io.freefair.lombok" version "3.8.0"
     id "org.springframework.boot" version "2.1.2.RELEASE"
     id 'idea'
 }
@@ -20,9 +20,12 @@ lombok{
 }
 
 dependencies {
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:2.1.2.RELEASE"
+
     compile ('org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE'){
         exclude module: 'spring-boot-starter-tomcat'
     }
+
     compile 'org.springframework.boot:spring-boot-starter-jetty:2.1.2.RELEASE'
     compile 'org.eclipse.jetty:jetty-alpn-conscrypt-server:9.4.12.v20180830'
     compile 'org.eclipse.jetty.http2:http2-server:9.4.12.v20180830'
@@ -36,6 +39,8 @@ dependencies {
     compile 'javax.xml.bind:jaxb-api:2.3.0'
     compile 'org.springframework.boot:spring-boot-devtools:2.1.2.RELEASE'
     compile 'org.springframework.boot:spring-boot-configuration-processor:2.1.2.RELEASE'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+
 
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
     testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.2.RELEASE'
@@ -47,6 +52,8 @@ group = 'com.dataart'
 version = '0.1.0'
 description = 'project1'
 sourceCompatibility = '11'
+
+compileJava.dependsOn(processResources);
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
